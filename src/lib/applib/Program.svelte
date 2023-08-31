@@ -10,8 +10,8 @@
 
     function drag(node){
         let moving = false;
-        let left= 300;
-        let top=100;
+        let left= (window.innerWidth - width)/2;
+        let top= (window.innerHeight - height)/2;
         
         node.style.top=`${top}px`;
         node.style.left=`${left}px`;

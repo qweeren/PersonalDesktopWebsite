@@ -2,21 +2,29 @@
     import Shortcuts from "./shortcuts.svelte";
     import Program from "../applib/Program.svelte";
     import { onMount } from "svelte";
+    import { openapps } from "../store/store";
 
     import Snake from "../apps/snake/snake.svelte";
     let showSnake=false;
-
+    let snakeWidth = 825;
+    let snakeHeight = 745;
+    function snakesizechange(e){
+        console.log(e);
+        snakeWidth = e.detail[0]+25;
+        snakeHeight = e.detail[1]+145;
+    }
 
     let desktop;
     let appref;
     let appname;
     let appicon
-
+    
 
     function OpenApp(e){
         if (e.detail) {
             appname = e.detail[0];
             appicon = e.detail[1];
+            openapps.set([...$openapps, {appname, appicon}]);
         }
         switch(appname){
             case "Snake":
@@ -29,8 +37,8 @@
     let isResizing = false;
     let initialX;
     let initialY;
-    let width;
-    let height;
+    let selectionwidth;
+    let selectionheight;
 
     function handleMouseDown(event) {
         if(event.target.className != this.className){
@@ -39,8 +47,8 @@
         initialX = event.clientX;
         initialY = event.clientY;
 
-        rectangle.style.width = "0";
-        rectangle.style.height = "0";
+        rectangle.style.selectionwidth = "0";
+        rectangle.style.selectionheight = "0";
         rectangle.style.left = `${initialX}px`;
         rectangle.style.top = `${initialY}px`;
         }
@@ -52,11 +60,11 @@
         const currentX = event.clientX;
         const currentY = event.clientY;
 
-        width = Math.abs(currentX - initialX);
-        height = Math.abs(currentY - initialY);
+        selectionwidth = Math.abs(currentX - initialX);
+        selectionheight = Math.abs(currentY - initialY);
 
-        rectangle.style.width = `${width}px`;
-        rectangle.style.height = `${height}px`;
+        rectangle.style.selectionwidth = `${selectionwidth}px`;
+        rectangle.style.selectionheight = `${selectionheight}px`;
 
         if (currentX < initialX) {
         rectangle.style.left = `${currentX}px`;
@@ -78,6 +86,15 @@
         window.addEventListener("mousemove", handleMouseMove);
         window.addEventListener("mouseup", handleMouseUp);
     });
+
+    function close(appname){
+        openapps.set($openapps.filter(appname))
+        switch(appname){
+            case "Snake":
+                showSnake = false;
+            default:
+        }
+    }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -89,9 +106,9 @@
     </div>
     <div class="appenv">
         {#if showSnake}
-        <Program width={825} height={745} {appicon} {appname} bind:this={appref} on:close={function(){showSnake=false}}>
-                <Snake/>
-            </Program>
+        <Program width={snakeWidth} height={snakeHeight} {appicon} {appname} bind:this={appref} on:close={close}>
+            <Snake on:snakesizechange={snakesizechange}/>
+        </Program>
         {/if}
     </div>
 </div>
@@ -116,8 +133,8 @@
     }
     .selection {
         position: absolute;
-        background-color: rgba(65, 65, 255, 0.801);
+        background-color: #004bd736;
         border-radius: 1px;
-        border: 1px solid rgb(39, 39, 255);
+        border: 1px solid #0078d7;
     }
 </style>

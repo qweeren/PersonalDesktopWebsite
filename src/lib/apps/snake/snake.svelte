@@ -1,5 +1,23 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+  let dispatch = createEventDispatcher();
   import { onMount } from 'svelte';
+
+  let width = 800;
+  let height = 600;
+  let selected;
+
+  function select(e){
+    if(e.target.value == "800"){
+      width = 800;
+      height = 600;
+    }else if(e.target.value == "400"){
+      width = 400;
+      height = 300;
+    }
+    start();
+    dispatch("snakesizechange", [width, height]);
+  }
 
   let canvas;
   let context;
@@ -28,10 +46,10 @@
     snakeSize = 10;
 
     snake = [
-      { x: 40, y: 30 },
-      { x: 39, y: 30 },
-      { x: 38, y: 30 },
-      { x: 37, y: 30 },
+      { x: width/20, y: height/20 },
+      { x: width/20-1, y: height/20 },
+      { x: width/20-2, y: height/20 },
+      { x: width/20-3, y: height/20 },
     ];
 
     apple = { x: 20, y: 20 };
@@ -153,8 +171,12 @@
 </script>
 
 <div class="snake">
-  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <canvas id="gameCanvas" width="{width}" height="{height}"></canvas>
   <div id="score">Score: 0</div>
+  <select name="size" bind:value={selected} on:change={select}>
+    <option value="800">80x60</option>
+    <option value="400">40x30</option>
+  </select>
   <button id="refreshButton" on:click={start}>Restart</button>
   <button id="start" on:click={startButton}>Start</button>
 </div>
@@ -186,7 +208,7 @@
     margin: 10px 0px;
   }
 
-  button {
+  button , select {
     font-family: "Press Start 2P", Arial, sans-serif;
     padding: 10px;
     font-size: 18px;
@@ -197,7 +219,17 @@
     cursor: pointer;
   }
 
-  button:hover {
+  button:hover , select:hover{
+    background-color: #0f0;
+    color: #000;
+  }
+
+  option{
+    background-color: #000;
+    color: #0f0;
+  }
+
+  option:hover{
     background-color: #0f0;
     color: #000;
   }
