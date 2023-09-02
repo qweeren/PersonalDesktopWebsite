@@ -1,6 +1,4 @@
 <script>
-    import Program from "./Program.svelte";
-
     export let appname = "Unnamed App";
     export let appicon = "https://icones.pro/wp-content/uploads/2021/06/icone-fichier-document-noir.png";
 
@@ -9,7 +7,7 @@
     let dispatch = createEventDispatcher();
 
     function OpenApp() {
-        dispatch("openapp", [appname, appicon])
+        // write openapp code
     }
 </script>
 

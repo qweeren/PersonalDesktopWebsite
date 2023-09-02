@@ -128,8 +128,8 @@
   }
 
   function randomlyPositionApple() {
-    apple.x = Math.floor(Math.random() * (canvas.width / snakeSize));
-    apple.y = Math.floor(Math.random() * (canvas.height / snakeSize));
+    apple.x = Math.floor(Math.random() * (width / snakeSize));
+    apple.y = Math.floor(Math.random() * (height / snakeSize));
   }
 
   function clear() {
@@ -178,7 +178,7 @@
     <option value="400">40x30</option>
   </select>
   <button id="refreshButton" on:click={start}>Restart</button>
-  <button id="start" on:click={startButton}>Start</button>
+  <button id="start" style="top: {width/2}px;" on:click={startButton}>Start</button>
 </div>
 <svelte:body on:keydown|preventDefault={handleKeyDown} />
 
@@ -190,6 +190,8 @@
     margin: 0;
   }
   .snake {
+    width: 100%;
+    height: 100%;
     background-color: #000;
     font-family: "Press Start 2P", Arial, sans-serif;
     text-align: center;
@@ -237,7 +239,6 @@
   #start {
     position: absolute;
     left: 50%;
-    top: 300px;
     transform: translate(-50%, -50%);
   }
 </style>
