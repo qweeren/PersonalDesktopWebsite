@@ -1,10 +1,10 @@
 <script>
     import { createEventDispatcher } from "svelte";
-
     let dispatch = createEventDispatcher();
 
     export let appname = "Unnamed App";
     export let appicon;
+    export let appid;
     export let width = 640;
     export let height = 480;
 
@@ -17,8 +17,8 @@
         node.style.left=`${left}px`;
 
         node.addEventListener('mousedown', () => {
-			 moving = true;
-		 });
+            moving = true;
+        });
         
         window.addEventListener('mousemove', (e) => {
             if (moving) {
@@ -27,16 +27,16 @@
                 node.style.top = `${top}px`;
                 node.style.left = `${left}px`;
             }
-		});
+        });
 
         window.addEventListener('mouseup', () => {
-			 moving = false;
-		 });
-        }
-
-    function close(){
-        dispatch("close");
+            moving = false;
+        });
     }
+
+    function close() {
+        dispatch("close");
+    };
 </script>
 
 <div class="program" use:drag style="width: {width}px; height: {height}px">

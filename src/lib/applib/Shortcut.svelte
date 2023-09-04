@@ -1,13 +1,12 @@
 <script>
     export let appname = "Unnamed App";
     export let appicon = "https://icones.pro/wp-content/uploads/2021/06/icone-fichier-document-noir.png";
+    export let appid;
 
-    import { createEventDispatcher } from "svelte";
-
-    let dispatch = createEventDispatcher();
+    import { openApps } from "../store/store";
 
     function OpenApp() {
-        // write openapp code
+        openApps.set([...$openApps, [appname, appicon, appid]])
     }
 </script>
 
