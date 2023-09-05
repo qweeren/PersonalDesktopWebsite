@@ -1,5 +1,5 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     let dispatch = createEventDispatcher();
 
     export let appname = "Unnamed App";
@@ -7,11 +7,12 @@
     export let appid;
     export let width = 640;
     export let height = 480;
-    let oldwidth;
-    let oldheight;
+    let oldwidth = width;
+    let oldheight = height;
     let isFullscreen = false;
 
     function drag(node){
+        console.log(isFullscreen)
         let moving = false;
         let left= (window.innerWidth - width)/2;
         let top= (window.innerHeight - height)/2;
@@ -24,11 +25,15 @@
         });
         
         window.addEventListener('mousemove', (e) => {
-            if (moving) {
+            if (moving && !isFullscreen) {
                 left += e.movementX;
                 top += e.movementY;
                 node.style.top = `${top}px`;
                 node.style.left = `${left}px`;
+            }
+            if(isFullscreen){
+                node.style.top = "0px"
+                node.style.left = "0px"
             }
         });
 
@@ -42,24 +47,21 @@
     };
 
     function fullscreen(){
-        if (isFullscreen) {
-            oldheight = height
-            oldwidth = width
-            width = window.innerWidth - 6
-            height = window.innerHeight - 50
-            this.style.top = "0px";
-            this.style.left = "0px";
-            console.log(this)
+        if (!isFullscreen) {
+            width = window.innerWidth - 6;
+            height = window.innerHeight - 55;
         }
         else{
             width = oldwidth
             height = oldheight
+            document.getElementById("program").style.left = (window.innerWidth - width)/2 + "px";
+            document.getElementById("program").style.top = (window.innerHeight - height)/2 + "px";
         }
         isFullscreen = !isFullscreen
     }
 </script>
 
-<div class="program" use:drag style="width: {width}; height: {height}">
+<div id="program" use:drag style="width: {width}; height: {height}">
     <div class="bar">
         <div class="icon" style="background-image: url('{appicon}');"></div>
         <div class="appname">{appname}</div>
@@ -84,7 +86,7 @@
         margin-left: 4px;
         margin-top: 3px;
     }
-    .program{
+    #program{
         position: absolute;
         background: linear-gradient(180deg, rgba(43,139,254,1) 0%,rgb(139, 189, 255) 2%,rgba(43,139,254,1) 4%, rgb(34, 106, 230) 23%, rgba(1,84,232,1) 62%, rgba(2,104,250,1) 77%); 
         border-top-left-radius: 8px;
