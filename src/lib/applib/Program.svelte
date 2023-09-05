@@ -10,6 +10,7 @@
     let oldwidth = width;
     let oldheight = height;
     let isFullscreen = false;
+    let rerender = 0;
 
     function drag(node){
         console.log(isFullscreen)
@@ -59,6 +60,10 @@
         }
         isFullscreen = !isFullscreen
     }
+
+    function restart(){
+        rerender++;
+    }
 </script>
 
 <div id="program" use:drag style="width: {width}; height: {height}">
@@ -66,13 +71,15 @@
         <div class="icon" style="background-image: url('{appicon}');"></div>
         <div class="appname">{appname}</div>
         <div class="buttons">
-            <button class="minimize">_</button>
+            <button class="restart" on:click={restart}>←</button>
             <button class="fullscreen" on:click={fullscreen}>□</button>
             <button class="close" on:click={close}>x</button>
         </div>
     </div>
     <div class="ui" style="width: {width}px; height: {height -32}px">
+        {#key rerender}
         <slot></slot>
+        {/key}
     </div>
 </div>
 
@@ -84,7 +91,7 @@
         background-repeat: no-repeat;
         background-position: center;
         margin-left: 4px;
-        margin-top: 3px;
+        margin-bottom: 3px;
     }
     #program{
         position: absolute;
