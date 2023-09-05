@@ -3,6 +3,8 @@
   import Mapsprogram from "../apps/Maps/Mapsprogram.svelte";
 import Cvpage from "../apps/cv/cvpage.svelte";
   import Cvprogram from "../apps/cv/cvprogram.svelte";
+  import Gamesprogram from "../apps/doom/gamesprogram.svelte";
+  import Doomprogram from "../apps/doom/gamesprogram.svelte";
     import SnakePage from "../apps/snake/SnakePage.svelte";
 import SnakeProgram from "../apps/snake/SnakeProgram.svelte";
     import Shortcuts from "./shortcuts.svelte";
@@ -77,6 +79,7 @@ import SnakeProgram from "../apps/snake/SnakeProgram.svelte";
         <Cvprogram/>
         <GoogleProgram/>
         <Mapsprogram/>
+        <Gamesprogram/>
     </div>
 </div>
 

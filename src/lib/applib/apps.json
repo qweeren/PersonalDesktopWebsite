@@ -18,5 +18,10 @@
         "appname": "Google Maps",
         "appicon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Google_Maps_icon_%282020%29.svg/1428px-Google_Maps_icon_%282020%29.svg.png",
         "appid": 4
+    },
+    {
+        "appname": "Games",
+        "appicon": "https://cdn-icons-png.flaticon.com/512/4236/4236913.png",
+        "appid": 5
     }
 ]

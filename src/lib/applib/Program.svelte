@@ -7,6 +7,9 @@
     export let appid;
     export let width = 640;
     export let height = 480;
+    let oldwidth;
+    let oldheight;
+    let isFullscreen = false;
 
     function drag(node){
         let moving = false;
@@ -37,15 +40,32 @@
     function close() {
         dispatch("close");
     };
+
+    function fullscreen(){
+        if (isFullscreen) {
+            oldheight = height
+            oldwidth = width
+            width = window.innerWidth - 6
+            height = window.innerHeight - 50
+            this.style.top = "0px";
+            this.style.left = "0px";
+            console.log(this)
+        }
+        else{
+            width = oldwidth
+            height = oldheight
+        }
+        isFullscreen = !isFullscreen
+    }
 </script>
 
-<div class="program" use:drag style="width: {width}px; height: {height}px">
+<div class="program" use:drag style="width: {width}; height: {height}">
     <div class="bar">
         <div class="icon" style="background-image: url('{appicon}');"></div>
         <div class="appname">{appname}</div>
         <div class="buttons">
             <button class="minimize">_</button>
-            <button class="fullscreen">□</button>
+            <button class="fullscreen" on:click={fullscreen}>□</button>
             <button class="close" on:click={close}>x</button>
         </div>
     </div>
@@ -59,6 +79,8 @@
         height: 24px;
         width: 24px;
         background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
         margin-left: 4px;
         margin-top: 3px;
     }
