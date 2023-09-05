@@ -3,5 +3,20 @@
         "appname": "Snake",
         "appicon": "https://cdn-icons-png.flaticon.com/512/528/528105.png",
         "appid": 1
+    },
+    {
+        "appname": "Qweren",
+        "appicon": "https://qweren.neocities.org/q.svg",
+        "appid": 2
+    },
+    {
+        "appname": "Google",
+        "appicon": "https://upload.wikimedia.org/wikipedia/commons/8/87/Google_Chrome_icon_%282011%29.png",
+        "appid": 3
+    },
+    {
+        "appname": "Google Maps",
+        "appicon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Google_Maps_icon_%282020%29.svg/1428px-Google_Maps_icon_%282020%29.svg.png",
+        "appid": 4
     }
 ]

@@ -1,5 +1,10 @@
 <script>
-    import SnakeProgram from "../apps/snake/SnakeProgram.svelte";
+  import GoogleProgram from "../apps/Google/GoogleProgram.svelte";
+  import Mapsprogram from "../apps/Maps/Mapsprogram.svelte";
+import Cvpage from "../apps/cv/cvpage.svelte";
+  import Cvprogram from "../apps/cv/cvprogram.svelte";
+    import SnakePage from "../apps/snake/SnakePage.svelte";
+import SnakeProgram from "../apps/snake/SnakeProgram.svelte";
     import Shortcuts from "./shortcuts.svelte";
     import { onMount } from "svelte";
 
@@ -69,6 +74,9 @@
     </div>
     <div class="appenv">
         <SnakeProgram/>
+        <Cvprogram/>
+        <GoogleProgram/>
+        <Mapsprogram/>
     </div>
 </div>
 

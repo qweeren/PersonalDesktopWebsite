@@ -1,6 +1,6 @@
 <script>
     import Program from "../../applib/Program.svelte";
-    import SnakePage from "./SnakePage.svelte";
+    import Cvpage from "./cvpage.svelte";
     import { openApps } from "../../store/store";
 
     let appref;
@@ -8,19 +8,14 @@
     let appicon;
     let appid;
 
-    let HideSnake=true;
-    let snakeWidth = 825;
-    let snakeHeight = 745;
-
-    function snakesizechange(e){
-        snakeWidth = e.detail[0]+25;
-        snakeHeight = e.detail[1]+145;
-    }
+    let HideProgram=true;
+    let programWidth = 800;
+    let programHeight = 600;
 
     openApps.subscribe((openAppsList) => {
         for (let i = 0; i < openAppsList.length; i++) {
-            if(openAppsList[i][2] == 1 && HideSnake){
-                HideSnake=false;
+            if(openAppsList[i][2] == 2 && HideProgram){
+                HideProgram=false;
                 appname = openAppsList[i][0];
                 appicon = openAppsList[i][1];
                 appid = openAppsList[i][2]
@@ -29,16 +24,16 @@
     })
 
     function close(){
-        HideSnake = true;
+        HideProgram = true;
         openApps.update(apps => {
             return apps.filter(app => app[2] !== appid);
         });
     }
 </script>
 
-<div class="snakecontainer" class:hidden={HideSnake}>
-    <Program on:close={close} width={snakeWidth} height={snakeHeight} {appicon} {appname} {appid} bind:this={appref}>
-        <SnakePage on:snakesizechange={snakesizechange}/>
+<div class="programcontainer" class:hidden={HideProgram}>
+    <Program on:close={close} width={programWidth} height={programHeight} {appicon} {appname} {appid} bind:this={appref}>
+        <Cvpage/>
     </Program>
 </div>
 
