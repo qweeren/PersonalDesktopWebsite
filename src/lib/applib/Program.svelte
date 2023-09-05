@@ -13,7 +13,6 @@
     let rerender = 0;
 
     function drag(node){
-        console.log(isFullscreen)
         let moving = false;
         let left= (window.innerWidth - width)/2;
         let top= (window.innerHeight - height)/2;

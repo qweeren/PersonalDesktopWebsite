@@ -3,6 +3,7 @@
     import Mapsprogram from "../apps/Maps/Mapsprogram.svelte";
     import Cvprogram from "../apps/cv/cvprogram.svelte";
     import Gamesprogram from "../apps/doom/gamesprogram.svelte";
+  import Settingsprogram from "../apps/settings/settingsprogram.svelte";
     import SnakeProgram from "../apps/snake/SnakeProgram.svelte";
     import Shortcuts from "./shortcuts.svelte";
     import { onMount } from "svelte";
@@ -78,6 +79,7 @@
         <GoogleProgram/>
         <Mapsprogram/>
         <Gamesprogram/>
+        <Settingsprogram/>
     </div>
 </div>
 
@@ -92,12 +94,14 @@
     }
     .desktop-grid{
         position: absolute;
-        display: flex;
+        display: inline-flex;
         flex-direction:column;
+        flex-wrap: wrap;
+        gap: 10px;
+        height: 100%;
+        width: fit-content;
         left: 10px;
-        right: 10px;
         top: 10px;
-        bottom: 10px;
     }
     .selection {
         position: absolute;
