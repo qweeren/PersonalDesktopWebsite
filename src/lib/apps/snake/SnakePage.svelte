@@ -57,13 +57,28 @@
   }
 
   function MoveSnake() {
-    for (let i = snake.length - 1; i > 0; i--) {
-      snake[i].x = snake[i - 1].x;
-      snake[i].y = snake[i - 1].y;
-    }
-    snake[0].x += directionX;
-    snake[0].y += directionY;
+  for (let i = snake.length - 1; i > 0; i--) {
+    snake[i].x = snake[i - 1].x;
+    snake[i].y = snake[i - 1].y;
   }
+
+  // Update the head's position
+  snake[0].x += directionX;
+  snake[0].y += directionY;
+
+  // Wrap around the game board
+  if (snake[0].x < 0) {
+    snake[0].x = (width)/snakeSize -1;
+  } else if (snake[0].x >= width/snakeSize) {
+    snake[0].x = 0;
+  }
+
+  if (snake[0].y < 0) {
+    snake[0].y = (height)/snakeSize -1;
+  } else if (snake[0].y >= height/snakeSize) {
+    snake[0].y = 0;
+  }
+}
 
   function handleKeyDown(event) {
     if (event.key === "ArrowUp" && directionY !== 1) {
@@ -98,34 +113,23 @@
   }
 
   function checkCollision() {
-    // Check collision with walls
-    if (
-      snake[0].x < 0 ||
-      snake[0].x >= canvas.width / snakeSize ||
-      snake[0].y < 0 ||
-      snake[0].y >= canvas.height / snakeSize
-    ) {
+
+  // Check collision with self
+  for (let i = 1; i < snake.length; i++) {
+    if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
       deathsfx.play();
       clearInterval(gameLoop);
       return;
     }
-
-    // Check collision with self
-    for (let i = 1; i < snake.length; i++) {
-      if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
-        deathsfx.play();
-        clearInterval(gameLoop);
-        return;
-      }
-    }
-
-    // Check collision with apple
-    if (snake[0].x === apple.x && snake[0].y === apple.y) {
-      growSnake();
-      eatsfx.play();
-      randomlyPositionApple();
-    }
   }
+
+  // Check collision with apple
+  if (snake[0].x === apple.x && snake[0].y === apple.y) {
+    growSnake();
+    eatsfx.play();
+    randomlyPositionApple();
+  }
+}
 
   function randomlyPositionApple() {
     apple.x = Math.floor(Math.random() * (width / snakeSize));
