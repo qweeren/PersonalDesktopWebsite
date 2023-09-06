@@ -1,10 +1,12 @@
 <script>
+  import Wallpaper from "../Taskbar/Wallpaper.svelte";
     import GoogleProgram from "../apps/Google/GoogleProgram.svelte";
     import Mapsprogram from "../apps/Maps/Mapsprogram.svelte";
     import Cvprogram from "../apps/cv/cvprogram.svelte";
     import Gamesprogram from "../apps/doom/gamesprogram.svelte";
   import Settingsprogram from "../apps/settings/settingsprogram.svelte";
     import SnakeProgram from "../apps/snake/SnakeProgram.svelte";
+  import wallpaperStore from "../store/localstorage";
     import Shortcuts from "./shortcuts.svelte";
     import { onMount } from "svelte";
 
@@ -63,7 +65,7 @@
     desktopGrid.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
-    oldWallpapersStore.set([{"url": "https://cdn.wallpapersafari.com/65/69/Fsex26.png", "name":"Default"}])
+    wallpaperStore.set([{"url": "https://cdn.wallpapersafari.com/65/69/Fsex26.png", "name":"Default"}])
   });
 </script>
 
