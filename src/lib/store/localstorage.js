@@ -13,6 +13,6 @@ function localStorageStore(key, initialValue) {
     return store;
 }
 
-const wallpaperStore = localStorageStore("wallpapers", ["/monitor.png"]);
+const wallpaperStore = localStorageStore("wallpapers", [{"url": "/xp.png"}]);
 
 export default wallpaperStore;
