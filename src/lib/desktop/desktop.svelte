@@ -1,5 +1,4 @@
 <script>
-  import Wallpaper from "../Taskbar/Wallpaper.svelte";
     import GoogleProgram from "../apps/Google/GoogleProgram.svelte";
     import Mapsprogram from "../apps/Maps/Mapsprogram.svelte";
     import Cvprogram from "../apps/cv/cvprogram.svelte";
@@ -65,7 +64,6 @@
     desktopGrid.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
-    wallpaperStore.set([{"url": "https://cdn.wallpapersafari.com/65/69/Fsex26.png", "name":"Default"}])
   });
 </script>
 
