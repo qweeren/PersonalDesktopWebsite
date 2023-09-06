@@ -1,10 +1,5 @@
 [
     {
-        "appname": "Settings",
-        "appicon": "/settings.png",
-        "appid": 1
-    },
-    {
         "appname": "Qweren",
         "appicon": "https://qweren.neocities.org/q.svg",
         "appid": 2

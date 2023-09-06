@@ -10,7 +10,7 @@
 
     let HideProgram=true;
     let programWidth = 800;
-    let programHeight = 600;
+    let programHeight = 650;
 
     openApps.subscribe((openAppsList) => {
         for (let i = 0; i < openAppsList.length; i++) {

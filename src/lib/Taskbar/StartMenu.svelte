@@ -1,5 +1,10 @@
 <script>
     export let isHidden;
+    import { openApps } from "../store/store";
+
+    function settings() {
+        openApps.set([...$openApps, ["Settings", "/settings.png", 1]])
+    }
 </script>
 
 <div class="startmenu" class:hidden={isHidden === true}>
@@ -9,7 +14,7 @@
     </div>
     <div class="center-flex">
         <div class="buttons-flex">
-            <div class="settings">
+            <div class="settings" on:click={settings}>
                 <div class="settingsico"></div>
                 <div class="settingstext">Settings</div>
             </div>

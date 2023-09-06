@@ -1,12 +1,11 @@
 <script>
     import Desktop from "../desktop/desktop.svelte";
-
-    import { wallpaper } from '../../lib/store/store.js';
+    import wallpaperStore from "../store/localstorage";
 
     let wallpaper_url;
 
-    wallpaper.subscribe((value) => {
-        wallpaper_url = value;
+    wallpaperStore.subscribe(data => {
+        wallpaper_url = data;
     })
 </script>
 

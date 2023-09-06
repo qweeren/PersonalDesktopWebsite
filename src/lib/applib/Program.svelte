@@ -12,18 +12,22 @@
     let isFullscreen = false;
     let rerender = 0;
 
-    function drag(node){
+    function drag(node) {
+        if (node.id !== 'program') {
+            return; // Do not make children draggable
+        }
+
         let moving = false;
-        let left= (window.innerWidth - width)/2;
-        let top= (window.innerHeight - height)/2;
-        
-        node.style.top=`${top}px`;
-        node.style.left=`${left}px`;
+        let left = (window.innerWidth - width) / 2;
+        let top = (window.innerHeight - height) / 2;
+
+        node.style.top = `${top}px`;
+        node.style.left = `${left}px`;
 
         node.addEventListener('mousedown', () => {
             moving = true;
         });
-        
+
         window.addEventListener('mousemove', (e) => {
             if (moving && !isFullscreen) {
                 left += e.movementX;
@@ -31,9 +35,9 @@
                 node.style.top = `${top}px`;
                 node.style.left = `${left}px`;
             }
-            if(isFullscreen){
-                node.style.top = "0px"
-                node.style.left = "0px"
+            if (isFullscreen) {
+                node.style.top = "0px";
+                node.style.left = "0px";
             }
         });
 
@@ -66,7 +70,7 @@
 </script>
 
 <div id="program" use:drag style="width: {width}; height: {height}">
-    <div class="bar">
+    <div id="bar">
         <div class="icon" style="background-image: url('{appicon}');"></div>
         <div class="appname">{appname}</div>
         <div class="buttons">
@@ -100,7 +104,7 @@
         user-select: none ;
         border: 3px solid rgba(43,139,254,1);
     }
-    .bar{
+    #bar{
         width: 100%;
         height: 30px;
         display: flex;
