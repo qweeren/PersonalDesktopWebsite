@@ -113,10 +113,15 @@
         display: inline-block;
         margin: 5px;
         padding: 5px;
-        border: 1px solid black;
+        background-color: #f4f1ec;
+        border: 2px solid #316290;
         border-radius: 5px;
         width: fit-content;
         list-style: none;
+        cursor: pointer;
+    }
+    li:hover{
+        box-shadow: inset 10px 10px 12px -4px rgba(194, 194, 194, 0.62);
     }
     img{
         height: 50px;

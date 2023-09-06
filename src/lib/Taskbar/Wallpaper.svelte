@@ -16,7 +16,7 @@
 <style>
     .wallpaper{
         background-size: cover;
-        background-position: top;
+        background-position: center;
         position: absolute;
         width: 100vw;
         height: 100vh;

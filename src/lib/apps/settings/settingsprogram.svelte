@@ -33,11 +33,17 @@
 
 <div class="programcontainer" class:hidden={HideProgram}>
     <Program on:close={close} width={programWidth} height={programHeight} {appicon} {appname} {appid} bind:this={appref}>
-        <Settingspage/>
+        <div class="page">
+            <Settingspage/>
+        </div>
     </Program>
 </div>
 
 <style>
+    .page{
+        overflow-y: scroll;
+        height: 618px;
+    }
     .hidden{
         display: none;
     }
