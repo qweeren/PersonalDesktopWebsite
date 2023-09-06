@@ -63,6 +63,7 @@
     desktopGrid.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
+    oldWallpapersStore.set([{"url": "https://cdn.wallpapersafari.com/65/69/Fsex26.png", "name":"Default"}])
   });
 </script>
 
