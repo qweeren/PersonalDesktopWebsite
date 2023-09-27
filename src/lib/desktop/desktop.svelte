@@ -6,8 +6,11 @@
   import Settingsprogram from "../apps/settings/settingsprogram.svelte";
     import SnakeProgram from "../apps/snake/SnakeProgram.svelte";
   import wallpaperStore from "../store/localstorage";
+  import FolderProgram from "../apps/Folder/FolderProgram.svelte";
     import Shortcuts from "./shortcuts.svelte";
     import { onMount } from "svelte";
+  import BallProgram from "../apps/BouncingBall/BallProgram.svelte";
+  import BouyancyProgram from "../apps/bouyancy/BouyancyProgram.svelte";
 
     let desktop;
     let desktopGrid;
@@ -81,6 +84,9 @@
         <Mapsprogram/>
         <Gamesprogram/>
         <Settingsprogram/>
+        <FolderProgram/>
+        <BallProgram/>
+        <BouyancyProgram/>
     </div>
 </div>
 

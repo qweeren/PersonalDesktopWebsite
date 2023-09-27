@@ -47,6 +47,6 @@
         color: white;
         text-align: center;
         text-shadow: 1px 1px 1px black;
-        word-wrap: break-word;
+        word-wrap:normal;
     }
 </style>
