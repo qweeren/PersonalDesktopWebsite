@@ -5,6 +5,10 @@
     function settings() {
         openApps.set([...$openApps, ["Settings", "/settings.png", 1]])
     }
+
+    function turnoff(){
+        window.close();
+    }
 </script>
 
 <div class="startmenu" class:hidden={isHidden === true}>
@@ -25,7 +29,7 @@
         <div class="shutflex">
             <div class="logoff shutbutton"></div>
             <div class="shuttext"><b>L</b>og Off</div>
-            <div class="shutdown shutbutton"></div>
+            <div class="shutdown shutbutton" on:click={turnoff}></div>
             <div class="shuttext">T<b>u</b>rn Off Computer</div>
         </div>
     </div>
