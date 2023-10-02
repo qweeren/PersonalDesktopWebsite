@@ -30,25 +30,59 @@ function initializeGrid() {
 
 initializeGrid(); // Call the function to initialize the grid
 
-// Define a color gradient for temperature
 const colorGradient = [
     "#000000", // Black
+    "#190000",
     "#330000",
+    "#4C0000",
     "#660000",
+    "#7F0000",
     "#990000",
+    "#B20000",
     "#CC0000",
-    "#FF0000", // Red
+    "#E50000", // Red
+    "#E50000", // Red
+    "#E50000", // Red
+    "#E50000", // Red
+    "#FF0A00",
+    "#FF1F00",
     "#FF3300",
-    "#FF6600",
-    "#FF9900",
-    "#FFCC00",
-    "#FFFF00", // Yellow
-    "#FFFF33",
+    "#FF4800",
+    "#FF5D00",
+    "#FF7200",
+    "#FF8800",
+    "#FF9D00",
+    "#FFB200",
+    "#FFC600",
+    "#FFDB00", // Orange
+    "#FFDB00", // Orange
+    "#FFDB00", // Orange
+    "#FFDB00", // Orange
+    "#FFEF00", // Yellow
+    "#FFFF10",
+    "#FFFF25",
+    "#FFFF3A",
+    "#FFFF4F",
     "#FFFF66",
-    "#FFFF99",
-    "#FFFFCC",
-    "#FFFFFF" // White
+    "#FFFF7B",
+    "#FFFF90",
+    "#FFFFA5",
+    "#FFFFBB",
+    "#FFFFD0",
+    "#FFFFE5", // Light Yellow
+    "#FFFFE5", // Light Yellow
+    "#FFFFE5", // Light Yellow
+    "#FFFFE5", // Light Yellow
+    "#FFFFFF", // White
+    "#FFFFFF", // White
+    "#FFFFFF", // White
+    "#FFFFFF", // White
+    "#FFFFFF", // White
+    "#80FFFF", // Cyan
 ];
+
+
+
 
 // Function to update the grid and redraw the canvas
 function update() {
@@ -98,7 +132,7 @@ function update() {
 
 // Function to get a color based on temperature
 function getColor(temperature) {
-    const gradientIndex = Math.floor((temperature / 100) * (colorGradient.length - 1));
+    const gradientIndex = Math.floor((temperature / 200) * (colorGradient.length));
     return colorGradient[gradientIndex];
 }
 
