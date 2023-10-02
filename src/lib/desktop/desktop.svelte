@@ -11,6 +11,7 @@
     import { onMount } from "svelte";
   import BallProgram from "../apps/BouncingBall/BallProgram.svelte";
   import BouyancyProgram from "../apps/bouyancy/BouyancyProgram.svelte";
+  import FireProgram from "../apps/Fire/FireProgram.svelte";
 
     let desktop;
     let desktopGrid;
@@ -87,6 +88,7 @@
         <FolderProgram/>
         <BallProgram/>
         <BouyancyProgram/>
+        <FireProgram/>
     </div>
 </div>
 

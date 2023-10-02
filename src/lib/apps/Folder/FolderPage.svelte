@@ -9,6 +9,11 @@
             "appname": "Bouyancy",
             "appicon": "https://static.thenounproject.com/png/788815-200.png",
             "appid": 9
+        },
+        {
+            "appname": "Fire",
+            "appicon": "https://www.freeiconspng.com/uploads/fire-vector-icon-png-27.png",
+            "appid": 10
         }
     ]
    import Shortcut from "../../applib/Shortcut.svelte";

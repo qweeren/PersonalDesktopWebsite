@@ -11,6 +11,7 @@
     let oldheight = height;
     let isFullscreen = false;
     let rerender = 0;
+    export let resizable = true;
 
     function drag(node) {
         if (node.id !== 'program') {
@@ -75,7 +76,9 @@
         <div class="appname">{appname}</div>
         <div class="buttons">
             <button class="restart" on:click={restart}>←</button>
-            <button class="fullscreen" on:click={fullscreen}>□</button>
+            {#if resizable}
+                <button class="fullscreen" on:click={fullscreen}>□</button>
+            {/if}
             <button class="close" on:click={close}>x</button>
         </div>
     </div>
