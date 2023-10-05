@@ -12,6 +12,7 @@
     let isFullscreen = false;
     let rerender = 0;
     export let resizable = true;
+    export let scrollable = true;
 
     function drag(node) {
         if (node.id !== 'program') {
@@ -140,6 +141,7 @@
         margin: 0;
         height: 100%;
         background-color: white;
+        overflow: hidden;
     }
     .appname{
         margin-left: 10px;

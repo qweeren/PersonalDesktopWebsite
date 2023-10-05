@@ -12,6 +12,7 @@
   import BallProgram from "../apps/BouncingBall/BallProgram.svelte";
   import BouyancyProgram from "../apps/bouyancy/BouyancyProgram.svelte";
   import FireProgram from "../apps/Fire/FireProgram.svelte";
+  import Minesweeperprogram from "../apps/minesweeper/minesweeperprogram.svelte";
 
     let desktop;
     let desktopGrid;
@@ -89,6 +90,7 @@
         <BallProgram/>
         <BouyancyProgram/>
         <FireProgram/>
+        <Minesweeperprogram/>
     </div>
 </div>
 

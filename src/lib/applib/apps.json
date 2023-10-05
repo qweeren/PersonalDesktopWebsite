@@ -20,11 +20,6 @@
         "appid": 5
     },
     {
-        "appname": "Snake",
-        "appicon": "https://cdn-icons-png.flaticon.com/512/528/528105.png",
-        "appid": 6
-    },
-    {
         "appname": "Random Projects",
         "appicon": "/folder.png",
         "appid": 7
