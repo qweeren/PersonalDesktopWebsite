@@ -32,7 +32,7 @@
 </script>
 
 <div class="programcontainer" class:hidden={HideProgram}>
-    <Program on:close={close} width={programWidth} scrollable={false} resizable={false} height={programHeight} {appicon} {appname} {appid} bind:this={appref}>
+    <Program on:close={close} width={programWidth} scrollable={false} height={programHeight} {appicon} {appname} {appid} bind:this={appref}>
         <div class="page">
             <Minesweeperpage/>
         </div>
@@ -42,6 +42,7 @@
 <style>
     .page{
         height: 618px;
+        background-color: #c0c0c0;
     }
     .hidden{
         display: none;
