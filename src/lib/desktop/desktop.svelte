@@ -13,6 +13,7 @@
   import BouyancyProgram from "../apps/bouyancy/BouyancyProgram.svelte";
   import FireProgram from "../apps/Fire/FireProgram.svelte";
   import Minesweeperprogram from "../apps/minesweeper/minesweeperprogram.svelte";
+  import GoLProgram from "../apps/GoL/GoLProgram.svelte";
 
     let desktop;
     let desktopGrid;
@@ -91,6 +92,7 @@
         <BouyancyProgram/>
         <FireProgram/>
         <Minesweeperprogram/>
+        <GoLProgram/>
     </div>
 </div>
 

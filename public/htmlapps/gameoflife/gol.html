@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conway's Game of Life</title>
+    <link rel="stylesheet" href="/public/htmlapps/gameoflife/golstyles.css">
+</head>
+<body>
+    <h3>Qweren's Game of Life</h3>
+    <div id="game-container">
+        <div id="game-board"></div>
+        <div id="controls">
+            <button id="playpause">▷</button>
+            <button id="clear">🗑</button>
+            <div id="info">
+                Gen:<span id="generation">0</span>
+            </div>
+            <div class="size">
+                <div class="vert">
+                    <input type="number" min="20" max="99" step="1" class="number" name="row" id="row">
+                    <div class="by">x</div>
+                    <input type="number" min="20" max="99" step="1" class="number" name="col" id="col">
+                </div>
+                <button id="resizeButton">Set</button>
+            </div>
+        </div>
+    </div>
+    <script src="/public/htmlapps/gameoflife/golscript.js"></script>
+</body>
+</html>
