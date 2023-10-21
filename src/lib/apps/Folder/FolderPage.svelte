@@ -27,7 +27,7 @@
         },
         {
             "appname": "Game Of Life",
-            "appicon": "/public/gol.png",
+            "appicon": "/gol.png",
             "appid": 12
         }
     ]
