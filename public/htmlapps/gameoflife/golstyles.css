@@ -1,5 +1,6 @@
 *{
     user-select: none;
+    padding: none;
 }
 
 body {
@@ -33,6 +34,7 @@ h3{
 }
 
 .size{
+    margin-right: 10px;
     justify-content: space-evenly;
     display: flex;
     flex-direction: column ;
@@ -45,6 +47,22 @@ h3{
     border: 1px solid #ccc;
     cursor: pointer;
     transition: background-color 0.1s ease-in-out;
+}
+
+.cell[data-color="0"] {
+    background-color: black;
+}
+
+.cell[data-color="1"] {
+    background-color: red;
+}
+
+.cell[data-color="2"] {
+    background-color: green;
+}
+
+.cell[data-color="3"] {
+    background-color: blue;
 }
 
 .cell:hover {
@@ -93,7 +111,7 @@ button {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
   }
 
-#info {
+.info {
     padding: 10px 15px;
     text-align: center;
     text-decoration: none;
@@ -139,4 +157,26 @@ input[type=number]::-webkit-inner-spin-button {
     font-size: 10px;
     padding: 3px;
     line-height: 0;
+}
+.colors{
+    outline: 2px solid var(--cellColor);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    columns: 15px,15px;
+    width: 30px;
+    height: 30px;
+}
+.color:hover{
+    outline: 1px solid white;
+}
+.color:active{
+    transform: scale(0.7);
+    content: "x";
+}
+.color{
+    padding: none;
+    width: 15px;
+    height: 15px; 
 }
