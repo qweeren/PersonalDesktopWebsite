@@ -12,8 +12,19 @@ let grid = createEmptyGrid();
 
 function createEmptyGrid() {
     const grid = new Array(numRows);
-    for (let i = 0; i < numRows; i++) {
-        grid[i] = new Array(numCols).fill(0);
+    for (let x = 0; x < numRows; x++) {
+        grid[x] = new Array(numCols).fill(0);
+        for (let y = 0; y < numCols; y++){
+            grid[x][y] = {
+                totalN : 0,
+                redN: 0,
+                blueN: 0,
+                greenN: 0,
+
+                color: 0,
+                isAlive: false,
+            }
+        }
     }
     return grid;
 }
@@ -45,12 +56,12 @@ function initializeGrid() {
 
 function toggleCell(row, col) {
     if (isGameRunning) {
-        stopGame();
+        toggleGame();
     }
 
-    grid[row][col] = grid[row][col] ? 0 : 1;
+    grid[row][col].isAlive = !grid[row][col].isAlive;
     const cell = document.getElementsByClassName("cell")[row * numCols + col];
-    cell.style.backgroundColor = grid[row][col] ? "#333" : "#fff";
+    cell.style.backgroundColor = grid[row][col].isAlive ? "#333" : "#fff";
 }
 
 function toggleGame() {
@@ -84,55 +95,35 @@ function resizeGrid() {
 document.getElementById("resizeButton").addEventListener("click", resizeGrid);
 
 function evolve() {
-    if (isGameRunning) {
-        const newGrid = createEmptyGrid();
-        for (let row = 0; row < numRows; row++) {
-            for (let col = 0; col < numCols; col++) {
-                const cell = grid[row][col];
-                const neighbors = countNeighbors(row, col);
-                if (cell === 1) {
-                    if (neighbors < 2 || neighbors > 3) {
-                        newGrid[row][col] = 0;
-                    } else {
-                        newGrid[row][col] = 1;
-                    }
-                } else if (neighbors === 3) {
-                    newGrid[row][col] = 1;
+    if(!isGameRunning) return;
+    const newGrid = createEmptyGrid();
+    countAllNeighbors();
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            const cell = grid[row][col];
+            const neighbors = cell.totalN; 
+            if (cell.isAlive) {
+                if (neighbors < 2 || neighbors > 3) {
+                    newGrid[row][col].isAlive = false;
+                } else {
+                    newGrid[row][col].isAlive = true;
                 }
-
-                // Update the grid cell's appearance without recreating the grid
-                const cellElement = gameBoard.children[row * numCols + col];
-                cellElement.style.backgroundColor = newGrid[row][col] ? "#333" : "#fff";
+            } else if (neighbors === 3) {
+                newGrid[row][col].isAlive = true;
             }
-        }
-        grid = newGrid;
-        generation++;
-        updateGenerationCount();
-        setTimeout(evolve, wait); // Adjust the speed here
-    }
-}
 
-function countNeighbors(row, col) {
-    let count = 0;
-    const directions = [
-        [-1, -1], [-1, 0], [-1, 1],
-        [ 0, -1],          [ 0, 1],
-        [ 1, -1], [ 1, 0], [ 1, 1]
-    ];
-
-    for (const [dx, dy] of directions) {
-        const newRow = row + dx;
-        const newCol = col + dy;
-
-        if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
-            if(grid[newRow][newCol] == 1){
-                count++;
-            }
+            // Update the grid cell's appearance without recreating the grid
+            const cellElement = gameBoard.children[row * numCols + col];
+            cellElement.style.backgroundColor = newGrid[row][col].isAlive ? "#333" : "#fff";
         }
     }
-
-    return count;
+    grid = newGrid;
+    countAllNeighbors();
+    generation++;
+    updateGenerationCount();
+    setTimeout(evolve,wait)
 }
+
 
 initializeGrid();
 updateGenerationCount();
@@ -141,11 +132,35 @@ document.getElementById("playpause").addEventListener("click", toggleGame);
 document.getElementById("clear").addEventListener("click", clearGrid);
 
 function countAllNeighbors() {
+    //reset totalN before counting
     for (let row = 0; row < numRows; row++) {
         for (let col = 0; col < numCols; col++) {
-            const neighbors = countNeighbors(row, col);
-            const cell = document.getElementsByClassName("cell")[row * numCols + col];
-            cell.textContent = neighbors.toString();
+            grid[row][col].totalN = 0;
+        }
+    }
+    
+    
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            const cell = grid[row][col]
+            if (!cell.isAlive) continue;
+
+            //for alive cells
+            
+            const directions = [
+                [-1, -1], [-1, 0], [-1, 1],
+                [ 0, -1],          [ 0, 1],
+                [ 1, -1], [ 1, 0], [ 1, 1]
+            ];
+            
+            for (const [dx, dy] of directions) {
+                const newRow = row + dx;
+                const newCol = col + dy;
+        
+                if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
+                    grid[newRow][newCol].totalN +=1;
+                }
+            }
         }
     }
 }
