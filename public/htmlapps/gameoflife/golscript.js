@@ -37,6 +37,10 @@ function togglePausePlay() {
     }
 }
 
+window.addEventListener("resize", (event) => {
+    setScale();
+});
+
 function setScale(){
     w = window.innerWidth;
     h= window.innerHeight;
