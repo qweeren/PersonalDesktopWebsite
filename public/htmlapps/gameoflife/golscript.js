@@ -38,6 +38,8 @@ function togglePausePlay() {
 }
 
 function setScale(){
+    w = window.innerWidth;
+    h= window.innerHeight;
   let resSlider = document.getElementById("scaleslider");
   resolution = resSlider.value;
   setup();
