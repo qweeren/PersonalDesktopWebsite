@@ -1,39 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conway's Game of Life</title>
-    <link rel="stylesheet" href="/htmlapps/gameoflife/golstyles.css">
+  <meta charset="UTF-8">
+  <title>Conway's Game of Life</title>
+  <!-- Include the p5.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <!-- Include your p5.js sketch file (e.g., sketch.js) -->
+  <script src="/htmlapps/gameoflife/golscript.js"></script>
+  <link rel="stylesheet" href="/htmlapps/gameoflife/golstyles.css">
 </head>
 <body>
-    <h3>Qweren's Game of Life</h3>
-    <div id="game-container">
-        <div id="game-board"></div>
-        <div id="controls">
-            <button id="playpause">▷</button>
-            <button id="clear">🗑</button>
-            <div class="info">
-                Gen:<span id="generation">0</span>
-            </div>
-            <div class="size">
-                <div class="vert">
-                    <input type="number" min="20" max="99" step="1" class="number" name="row" id="row">
-                    <div class="by">x</div>
-                    <input type="number" min="20" max="99" step="1" class="number" name="col" id="col">
-                </div>
-                <button id="resizeButton">Set</button>
-            </div>
-            <div class="info">
-                <div class="colors" id="colors">
-                    <div class="color" style="background-color: #333;"></div>
-                    <div class="color" style="background-color: red;"></div>
-                    <div class="color" style="background-color: lime;"></div>
-                    <div class="color" style="background-color: lightseagreen;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="/htmlapps/gameoflife/golscript.js"></script>
+  <!-- Create a canvas element with an ID matching the ID in your sketch.js file -->
+  <div class="controls">
+    <button id="pauseplay" class="button-4" onclick="togglePausePlay()">▷</button>
+    <button id="back" class="button-4" onclick="takeBack()">↺</button>
+    <button id="savebutton" class="button-4" onclick="saveGrid()">💾</button>
+    <button id="cleargrid" class="button-4" onclick="clearGrid()">🗑</button>
+    <button id="ss" class="button-4" onclick="save()">📷</button>
+    <div id="res" class="button-4">Scale: <input onchange="setScale()" style="width: 100px;" type="range" id="scaleslider" step="1" max="50" min="6"></div>
+    <div id="speed" class="button-4">Speed: <input onchange="setSpeed()" style="width: 100px;" type="range" id="speedSlider" value="10" step="1" max="60" min="2"></div>
+  </div>
+  <div id="sketch-container"></div>
 </body>
 </html>

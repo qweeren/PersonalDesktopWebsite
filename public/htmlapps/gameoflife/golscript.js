@@ -1,178 +1,166 @@
-let numRows = 20;
-let numCols = 20;
-const cellSize = 20;
-const wait = 100;
-let generation = 0;
+let grid;
+let savedGrid;
+let cols;
+let rows;
+let resolution = 24; // Adjust this for the size of your grid
+let isPaused = true; // Add this global variable to track the game state
 
-let selectedColor = 0;
+let w = window.innerWidth;
+let h= window.innerHeight;
 
-const playIcon = "▷";
-const pauseIcon = "| |";
+let isDragging = false;
+let initialCellState = false;
 
-let isGameRunning = false;
-let grid = createEmptyGrid();
+function setup() {
+    createCanvas(w, h);
+  
+    cols = floor(w / resolution);
+    rows = floor(h / resolution);
+    grid = createGrid(cols, rows);
+    nextGen = createGrid(cols, rows);
+  
+    frameRate(10);
+  
+    mousePressed = handleMousePressed;
+    mouseReleased = handleMouseReleased;
+    mouseDragged = handleMouseDragged;
+  }
+  
+function togglePausePlay() {
+    isPaused = !isPaused;
+    const button = document.getElementById('pauseplay');
 
-function createEmptyGrid() {
-    const grid = new Array(numRows);
-    for (let x = 0; x < numRows; x++) {
-        grid[x] = new Array(numCols).fill(0);
-        for (let y = 0; y < numCols; y++){
-            grid[x][y] = {
-                totalN : 0,
-                redN: 0,
-                blueN: 0,
-                greenN: 0,
+    if (isPaused) {
+        button.textContent = '▷';
+    } else {
+        button.textContent = '| |';
+    }
+}
 
-                color: 0,
-                isAlive: false,
-            }
+function setScale(){
+  let resSlider = document.getElementById("scaleslider");
+  resolution = resSlider.value;
+  setup();
+}
+
+function setSpeed(){
+  let speedSlider = document.getElementById("speedSlider");
+  frameRate(Number(speedSlider.value));
+}
+
+async function saveGrid(){
+    savedGrid = JSON.parse(JSON.stringify(grid));
+    saveButton = document.getElementById("savebutton");
+    saveButton.textContent = "✅";
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    saveButton.textContent = "💾";
+
+}
+
+function clearGrid(){
+    grid = createGrid(cols, rows);
+}
+
+function takeBack(){
+    grid = JSON.parse(JSON.stringify(savedGrid));
+    if(!isPaused){ togglePausePlay()};
+}
+
+  function draw() {
+    background(255);
+    if (!isPaused) {
+      computeNextGeneration();
+    }
+    drawGrid(grid);
+  }
+  
+  function drawGrid(current) {
+    for (let x = 0; x < cols; x++) {
+      for (let y = 0; y < rows; y++) {
+        let cell = current[x][y];
+        if (cell.isAlive) {
+          fill(cell.color);
+          stroke(0);
+        } else {
+          noFill();
+          stroke(200);
         }
+        rect(x * resolution, y * resolution, resolution, resolution);
+      }
+    }
+  }
+  
+function handleMousePressed() {
+    isDragging = true;
+    initialCellState = grid[floor(mouseX / resolution)][floor(mouseY / resolution)].isAlive;
+    handleMouseDragged();
+}
+
+function handleMouseReleased() {
+    isDragging = false;
+}
+
+function handleMouseDragged() {
+    if (!isDragging) return;
+
+    let x = floor(mouseX / resolution);
+    let y = floor(mouseY / resolution);
+        if (x >= 0 && x < cols && y >= 0 && y < rows) {
+            grid[x][y].isAlive = !initialCellState;
+        }
+}
+  
+  function computeNextGeneration() {
+    countAllNeighbors();
+    for (let x = 0; x < cols; x++) {
+      for (let y = 0; y < rows; y++) {
+        neighbors = grid[x][y].totalN;
+        let cell = grid[x][y];
+        if (!cell.isAlive && neighbors === 3) {
+          cell.isAlive = true;
+          // You can modify other properties here as well
+        } else if (cell.isAlive && (neighbors < 2 || neighbors > 3)) {
+          cell.isAlive = false;
+          // You can modify other properties here as well
+        }
+      }
+    }
+  }
+  
+  function createGrid(cols, rows) {
+    let grid = new Array(cols);
+    for (let x = 0; x < cols; x++) {
+      grid[x] = new Array(rows);
+      for (let y = 0; y < rows; y++) {
+        grid[x][y] = {
+            totalN: 0,
+            redN: 0,
+            greenN: 0,
+            blueN: 0,
+
+            color: 0,
+            isAlive: false,
+        };
+      }
     }
     return grid;
-}
-
-function updateGenerationCount() {
-    document.getElementById("generation").textContent = generation;
-}
-
-function createCell(row, col) {
-    const cell = document.createElement("div");
-    cell.className = "cell";
-    cell.style.width = cellSize + "px";
-    cell.style.height = cellSize + "px";
-    cell.addEventListener("click", () => toggleCell(row, col));
-    return cell;
-}
-
-const gameBoard = document.getElementById("game-board");
-function initializeGrid() {
-    gameBoard.innerHTML = "";
-    for (let row = 0; row < numRows; row++) {
-        for (let col = 0; col < numCols; col++) {
-            const cell = createCell(row, col);
-            gameBoard.appendChild(cell);
-            document.documentElement.style.setProperty("--numCols", numCols);
-        }
-    }
-}
-function toggleCell(row, col) {
-    if (isGameRunning) {
-        toggleGame();
-    }
-
-    grid[row][col].isAlive = !grid[row][col].isAlive;
-    grid[row][col].color = selectedColor; // Initialize the color
-    updateCellColor(row, col);
-}
-
-function toggleGame() {
-    isGameRunning = !isGameRunning;
-    const button = document.getElementById("playpause");
-    if (isGameRunning) {
-        button.textContent = pauseIcon;
-        evolve();
-    } else {
-        button.textContent = playIcon;
-    }
-}
-
-function clearGrid() {
-    grid = createEmptyGrid();
-    initializeGrid();
-    generation = 0;
-    updateGenerationCount();
-    if(isGameRunning) toggleGame();
-}
-
-
-function resizeGrid() {
-    numRows = parseInt(document.getElementById("row").value);
-    numCols = parseInt(document.getElementById("col").value);
-    
-    clearGrid(); // Clear the current grid
-    initializeGrid(); // Initialize the new grid with the specified size
-}
-
-document.getElementById("resizeButton").addEventListener("click", resizeGrid);
-
-function evolve() {
-    if (!isGameRunning) return;
-    const newGrid = createEmptyGrid();
-    countAllNeighbors();
-    for (let row = 0; row < numRows; row++) {
-        for (let col = 0; col < numCols; col++) {
-            const cell = grid[row][col];
-            const neighbors = cell.totalN;
-            if (cell.isAlive) {
-                if (neighbors < 2 || neighbors > 3) {
-                    newGrid[row][col].isAlive = false;
-                } else {
-                    newGrid[row][col].isAlive = true;
-                    // Check if any neighbor count is 2 or 3
-                    if (cell.redN === 2 || cell.redN === 3) {
-                        newGrid[row][col].color = 1; // Red
-                    } else if (cell.greenN === 2 || cell.greenN === 3) {
-                        newGrid[row][col].color = 2; // Green
-                    } else if (cell.blueN === 2 || cell.blueN === 3) {
-                        newGrid[row][col].color = 3; // Blue
-                    } else {
-                        newGrid[row][col].color = 0; // Default to black
-                    }
-                }
-            } else if (neighbors === 3) {
-                newGrid[row][col].isAlive = true;
-                // Determine the dominant color based on neighbor counts
-                if (cell.redN === 2 || cell.redN === 3) {
-                    newGrid[row][col].color = 1; // Red
-                } else if (cell.greenN === 2 || cell.greenN === 3) {
-                    newGrid[row][col].color = 2; // Green
-                } else if (cell.blueN === 2 || cell.blueN === 3) {
-                    newGrid[row][col].color = 3; // Blue
-                } else {
-                    newGrid[row][col].color = 0; // Default to black
-                }
-            }
-
-            updateCellColor(row, col);
-        }
-    }
-    grid = newGrid;
-    countAllNeighbors();
-    generation++;
-    updateGenerationCount();
-    setTimeout(evolve, wait);
-}
-
-function updateCellColor(row,col){
-    // Update the grid cell's appearance without recreating the grid
-    const cellElement = gameBoard.children[row * numCols + col];
-    if(!grid[row][col].isAlive){
-        cellElement.style.backgroundColor = "#fff";
-    }else{
-        cellElement.style.backgroundColor = getColorFromCode(grid[row][col].color);
-    }
-}
-
-initializeGrid();
-updateGenerationCount();
-
-document.getElementById("playpause").addEventListener("click", toggleGame);
-document.getElementById("clear").addEventListener("click", clearGrid);
-
-function countAllNeighbors() {
+  }
+  
+  function countAllNeighbors() {
     // Reset totalN and color-specific counts before counting
-    for (let row = 0; row < numRows; row++) {
-        for (let col = 0; col < numCols; col++) {
-            grid[row][col].totalN = 0;
-            grid[row][col].redN = 0;
-            grid[row][col].greenN = 0;
-            grid[row][col].blueN = 0;
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            let cell = grid[col][row];
+            cell.totalN = 0;
+            cell.redN = 0;
+            cell.greenN = 0;
+            cell.blueN = 0;
         }
     }
 
-    for (let row = 0; row < numRows; row++) {
-        for (let col = 0; col < numCols; col++) {
-            const cell = grid[row][col];
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            const cell = grid[col][row];
             if (!cell.isAlive) continue;
 
             // Define the directions array
@@ -183,50 +171,20 @@ function countAllNeighbors() {
             ];
 
             for (const [dx, dy] of directions) {
-                let newRow = row + dx, newCol = col + dy;
+                let newRow = (row + dx + rows) % rows; // Apply modulus for looping
+                let newCol = (col + dy + cols) % cols; // Apply modulus for looping
 
-                if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
-                    const neighbor = grid[newRow][newCol];
-                    neighbor.totalN += 1;
+                const neighbor = grid[newCol][newRow];
+                neighbor.totalN += 1;
 
-                    if (cell.color === 1) {
-                        neighbor.redN += 1;
-                    } else if (cell.color === 2) {
-                        neighbor.greenN += 1;
-                    } else if (cell.color === 3) {
-                        neighbor.blueN += 1;
-                    }
+                if (cell.color === 1) {
+                    neighbor.redN += 1;
+                } else if (cell.color === 2) {
+                    neighbor.greenN += 1;
+                } else if (cell.color === 3) {
+                    neighbor.blueN += 1;
                 }
             }
         }
-    }
-}
-
-colorDivs = document.getElementsByClassName("color");
-for (let i = 0; i < colorDivs.length; i++) {
-    const colorDiv = colorDivs[i];
-    console.log(colorDiv.style.backgroundColor);
-    colorDiv.addEventListener("click", () => selectColor(i));
-    
-}
-
-function selectColor(colorCode) {
-    selectedColor = colorCode;
-    document.documentElement.style.setProperty("--cellColor", getColorFromCode(colorCode));
-}
-
-// Function to get color from color code
-function getColorFromCode(colorCode) {
-    switch (colorCode) {
-        case 0:
-            return "#333";
-        case 1:
-            return "red";
-        case 2:
-            return "lime";
-        case 3:
-            return "lightseagreen";
-        default:
-            return "#333";
     }
 }
