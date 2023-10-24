@@ -19,7 +19,7 @@ function setup() {
     grid = createGrid(cols, rows);
     nextGen = createGrid(cols, rows);
   
-    frameRate(10);
+    frameRate(60);
   
     mousePressed = handleMousePressed;
     mouseReleased = handleMouseReleased;
