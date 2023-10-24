@@ -32,8 +32,10 @@ function togglePausePlay() {
 
     if (isPaused) {
         button.textContent = '▷';
+        frameRate(60);
     } else {
         button.textContent = '| |';
+        frameRate(Number(document.getElementById("speedSlider").value));
     }
 }
 
