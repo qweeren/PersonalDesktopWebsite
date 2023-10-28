@@ -14,7 +14,7 @@ let numRows = Math.floor(canvasHeight / cellSize);    // Make these variables mu
 const verticalSpreadCoefficient = 0.5; // Adjust as needed
 const horizontalSpreadCoefficient = 0.2; // Adjust as needed
 const temperatureLossRate = 0.01; // Temperature loss rate per frame
-let heat = 100;
+let heat = 500;
 
 let grid = [];
 
@@ -23,7 +23,7 @@ function initializeGrid() {
     for (let i = 0; i < numRows; i++) {
         grid[i] = [];
         for (let j = 0; j < numColumns; j++) {
-            grid[i][j] = Math.random() * 100; // Random initial temperature (0-100)
+            grid[i][j] = 0 // Random initial temperature (0-100)
         }
     }
 }
@@ -217,11 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
             numColumns = Math.floor(canvas.width / cellSize);
             numRows = Math.floor(canvas.height / cellSize);
             initializeGrid(); // Reinitialize the grid after changing cell size
-        }
-    
-        // Apply the selected heat value
-        if (heat >= 100 && heat <= 1000) {
-            temperatureLossRate = 0.01 * heat / 100; // Adjust temperature loss rate
         }
     
         settingsPopup.style.display = "none"; // Close the settings popup
