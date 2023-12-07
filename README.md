@@ -1,47 +1,27 @@
-# Svelte + Vite
+This is a web app that recreates the look and feel of the Windows XP operating system. You can interact with the desktop, open and close windows, play Minesweeper, and more. This website is built with Svelte and Vite, and deployed on Vercel.
+I built this out of boredom and it was fun to make. I had little unrelated projects laying around and thought why not put them all in one website. This is the idea i came up with. You can try these projects under the "Random Projects" folder on the desktop.
+The current way to add your own apps is really really bad and not modular at all. Because i couldn't find a way to inject a .svelte component into the DOM. If you find a better way please submit a pull request. 
 
-This template should help get you started developing with Svelte in Vite.
+# Features
+ - Responsive and draggable windows with minimize, maximize, and close buttons
+ - Start menu with icons and submenus
+ - Desktop with wallpaper, icons, and context menu
+ - File Explorer with tree view and file icons
+ - Minesweeper game with score, flags, and smiley face
+ - Google app with a web browser and a search bar
 
-## Recommended IDE Setup
+# Demo
+You can try out Qweren online at qweren.vercel.app.
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+# Installation
+If you want to use the soure code and do some stuff locally, you need to have Node.js and npm installed on your machine. Then, follow these steps:
 
-## Need an official Svelte framework?
+Clone this repository: git clone https://github.com/qweren/PersonalDesktopWebsite.git
+Navigate to the project directory: cd PersonalDesktopWebsite
+Install the dependencies: npm install
+Start the development server: npm run dev
+Open your browser and go to the provided localhost url
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+# License
+Qweren is licensed under the MIT License. See the LICENSE file for more details.
 
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
