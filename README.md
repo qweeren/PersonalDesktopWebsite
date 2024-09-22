@@ -16,11 +16,11 @@ You can try out Qweren online at qweren.vercel.app.
 # Installation
 If you want to use the soure code and do some stuff locally, you need to have Node.js and npm installed on your machine. Then, follow these steps:
 
-Clone this repository: git clone https://github.com/qweren/PersonalDesktopWebsite.git
-Navigate to the project directory: cd PersonalDesktopWebsite
-Install the dependencies: npm install
-Start the development server: npm run dev
-Open your browser and go to the provided localhost url
+- Clone this repository: git clone https://github.com/qweren/PersonalDesktopWebsite.git
+- Navigate to the project directory: cd PersonalDesktopWebsite
+- Install the dependencies: npm install
+- Start the development server: npm run dev
+- Open your browser and go to the provided localhost url
 
 # License
 This project is licensed under the MIT License. See the LICENSE file for more details.
