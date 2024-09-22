@@ -23,5 +23,5 @@ Start the development server: npm run dev
 Open your browser and go to the provided localhost url
 
 # License
-Qweren is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
