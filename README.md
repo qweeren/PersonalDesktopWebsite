@@ -11,7 +11,7 @@ The current way to add your own apps is really really bad and not modular at all
  - Google app with a web browser and a search bar
 
 # Demo
-You can try out Qweren online at qweren.vercel.app.
+You can try out This website online at qweren.vercel.app (not anymore).
 
 # Installation
 If you want to use the soure code and do some stuff locally, you need to have Node.js and npm installed on your machine. Then, follow these steps:
